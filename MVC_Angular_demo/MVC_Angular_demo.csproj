@@ -262,6 +262,7 @@
   </Target> -->
   <!-- Add these two Targets at the end. -->
   <Target Name="NgRelease" BeforeTargets="Build">
+    <Exec WorkingDirectory="$(ProjectDir)Scripts\Angular" Command="npm i" />
     <Exec WorkingDirectory="$(ProjectDir)Scripts\Angular" Command="ng build" />
   </Target>
 </Project>
