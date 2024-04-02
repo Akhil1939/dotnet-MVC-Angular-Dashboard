@@ -1,0 +1,22 @@
+<table>
+    <thead>
+        <tr>
+            <th class="text-center">ID</th>
+            <th class="text-center">Name</th>
+            <th class="text-center">View</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if(RoleList.length > 0){
+
+        @for (item of RoleList; track item.Id) {
+        <tr>
+            <td>{{ item.Id }}</td>
+            <td>{{ item.Name }}</td>
+            <td><a [routerLink]="'View/' + item.Id">View</a></td>
+        </tr>
+        }
+        }
+
+    </tbody>
+</table>

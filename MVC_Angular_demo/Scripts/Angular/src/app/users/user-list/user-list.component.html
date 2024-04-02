@@ -1,0 +1,29 @@
+<table>
+    <thead>
+      <tr>
+        <th class="text-center">ID</th>
+        <th class="text-center">First Name</th>
+        <th class="text-center">Last Name</th>
+        <th class="text-center">Email Name</th>
+        <!-- Add more table headers for other properties if needed -->
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+        @if(userList.length > 0){
+
+            @for (item of userList; track item.FirstName) {
+
+                <tr>
+                    <td>{{ item.Id }}</td>
+                    <td>{{ item.FirstName }}</td>
+                    <td>{{ item.LastName }}</td>
+                    <td>{{ item.Email }}</td>
+                    <!-- Add more table cells for other properties if needed -->
+                    <td><a [routerLink]="['View', item.Id]">View</a></td>
+                </tr>
+            }
+        }
+    </tbody>
+  </table>
+  
