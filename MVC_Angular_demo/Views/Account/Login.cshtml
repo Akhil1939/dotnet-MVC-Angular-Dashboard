@@ -1,0 +1,151 @@
+﻿@*@using MVC_Angular_demo.DTOs
+    @model RegisterViewModel
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Login</title>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            body {
+                background-color: #f8f9fa;
+            }
+
+            .login-container {
+                margin-top: 50px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row justify-content-center login-container">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">Login</div>
+                        <div class="card-body">
+                            @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Email)
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Password)
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                </div>
+                                <button id="loginButton" type="button" class="btn btn-primary">Login</button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#loginButton').click(function () {
+                    var email = $('#email').val();
+                    var password = $('#password').val();
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("Login", "Account")',
+                        contentType: 'application/json',
+                        data: JSON.stringify({ Email: email, Password: password }),
+                        success: function (response) {
+                            // Store token in local storage
+                            localStorage.setItem('authToken', response.token);
+
+                            // Redirect or perform any other action
+                            window.location.href = '@Url.Action("Index", "Home")';
+                        },
+                        error: function (xhr, status, error) {
+                            // Handle error
+                            console.error(xhr.responseText);
+                        }
+                    });
+                });
+            });
+        </script>
+    </body>
+    </html>*@
+@using MVC_Angular_demo.DTOs
+@model RegisterViewModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .login-container {
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center login-container">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Login</div>
+                    <div class="card-body">
+                        @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Email)
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @id = "email" })
+                                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Password)
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control", @id = "password" })
+                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                            </div>
+                            <button id="loginButton" type="button" class="btn btn-primary">Login</button>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#loginButton').click(function () {
+                var email = $('#email').val();
+                var password = $('#password').val();
+                debugger
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Login", "Account")',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ Email: email, Password: password }),
+                    success: function (response) {
+                        // Store token in local storage
+                        localStorage.setItem('authToken', response);
+
+                        // Redirect or perform any other action
+                        window.location.href = '@Url.Action("Index", "Home")';
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle error
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+

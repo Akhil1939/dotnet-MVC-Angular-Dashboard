@@ -1,4 +1,5 @@
-﻿using MVC_Angular_demo.Models;
+﻿using MVC_Angular_demo.Extensions;
+using MVC_Angular_demo.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace MVC_Angular_demo.Controllers
         {
             return View();
         }
+        [JwtAuthorizeAttribute(Roles="1,2")]
         public string UserList()
         {
             // Get the list of users
@@ -24,6 +26,7 @@ namespace MVC_Angular_demo.Controllers
             string json = JsonConvert.SerializeObject(users);
             return json;
         }
+        [JwtAuthorizeAttribute(Roles = "2")]
         public string GetUser(int Id)
         {
             List<UserModel> users = GetUsers();
